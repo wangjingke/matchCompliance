@@ -6,7 +6,7 @@ function login(inputFile) {
     reader.readAsText(fileUpload.files[0]);
     reader.onload = function(event) {
         var csv = event.target.result;
-        key = Papa.parse(csv).data;
+        var key = Papa.parse(csv).data;
         
         var config = {
             apiKey: key[0][1],
@@ -36,8 +36,8 @@ function login(inputFile) {
 function checkCompliance() {
     var id = document.getElementById("subjectList").value.replace(/.com/g, "_com");
     firebase.database().ref().child("NOTES").child("MATCH").child(id).once('value').then(function(snapshot) {
-        var outputX = personCompliance(snapshot.val());
-        var totalX = totalCompliance(outputX);
+        outputX = personCompliance(snapshot.val());
+        totalX = totalCompliance(outputX);
         
         $(document).ready(function(){
             $("#indivTotalCompliance").DataTable({
@@ -105,16 +105,20 @@ function personCompliance(note, ncol=8) {
             if (note[dates[i]]["Survey"]==null) {
                 personX.push(fillDayX(dates[i], 0, ncol)); //no surveys
             } else {
-                promptX = note[dates[i]]["Survey"]["Complete"];
-                personX.push(dayCompliance(dates[i], ncol, promptX));
+                if (note[dates[i]]["Survey"]["Complete"]==null) {
+                    personX.push(fillDayX(dates[i], 0, ncol)); //no surveys
+                } else {
+                    promptX = note[dates[i]]["Survey"]["Complete"];
+                    personX.push(dayCompliance(dates[i], ncol, promptX));
+                }
             }
         }
         return personX;
     }
     
     function dayCompliance(date, ncol, prompts) {
-        sumX = {id:[], dates:[]};
-        promptList = Object.keys(prompts);
+        var sumX = {id:[], dates:[]};
+        var promptList = Object.keys(prompts);
         if (promptList.length==0) {
             return fillDayX(dates[i], 0, ncol-1); //surveys without prompts
         } else {
