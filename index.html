@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>MATCH Compliance Check</title>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+    <!-- csv parser --->
+    <script src="./js/papaparse.min.js"></script>
+    <!--dropdown menu--->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--DataTable-->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.css">
+    <!--customize function-->
+    <script src="./js/match_compliance_functions.js"></script>
+</head>
+
+<body>
+<h1 align="center">MATCH EMA Compliance Check</h1>
+<form>
+    <div align="center">
+        <fieldset style="display: inline-block">
+            <legend>Log In</legend>
+                <p>
+                    Upload Filebase configurations:
+                    <input type="file" id="firebaseKey" />
+                </p>
+                <p>
+                    Username: <input type="text" id="username" />
+                    Password: <input type="text" id="password" />
+                </p>
+                <input type="button" value="Log in" onclick="login(inputFile = 'firebaseKey')"/>
+        </fieldset>
+    </div>
+</form>
+<p></p>
+<div class="ui-widget" align="center">
+    <label for="tags">Participant ID: </label>
+    <input id="subjectList">
+    <input type="button" id="check" value="Check Compliance" onclick="checkCompliance()" />
+</div>
+<p></p>
+<div id="complianceTable" style="display:none;">
+    <table id="indivTotalCompliance" class="display" data-order='[[ 0, "asc" ]]' data-page-length='1'>
+        <thead>
+            <tr>
+                <th>Total EMA Prompts</th>
+                <th>EMA Answered</th>
+                <th>EMA Compliance</th>
+                <th>Total Saliva Prompts</th>
+                <th>Saliva Answered</th>
+            </tr>
+        </thead>
+    </table>
+    <p></p>
+    <table id="indivDayCompliance" class="display" data-order='[[ 0, "asc" ]]' data-page-length='25'>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Survey Date</th>
+                <th>Subject ID</th>
+                <th>#EMA Prompts</th>
+                <th>#EMA Answered</th>
+                <th>EMA Compliance</th>
+                <th>#Saliva Prompts</th>
+                <th>#Saliva Answered</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+    
+    
+    
+    
+    
+</body>
+
+
+</html>
