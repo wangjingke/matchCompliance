@@ -28,7 +28,7 @@ function login(inputFile) {
                     $( "#subjectList" ).autocomplete({source: userList});
                 });
             });
-            document.getElementById("check").disabled = false;
+            document.getElementById("subjectSelection").style.display = "block";
         });
     }
 }
