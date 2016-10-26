@@ -48,6 +48,7 @@ function checkCompliance() {
                     {className: "dt-body-center" },
                     {className: "dt-body-center" },
                     {className: "dt-body-center" },
+                    {className: "dt-body-center" },
                     {className: "dt-body-center" }
                 ]
             });
