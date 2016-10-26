@@ -79,14 +79,17 @@ function checkCompliance() {
 }
 
 function totalCompliance(person) {
-    var total = [0, 0, 0, 0, 0];
+    var total = ["", 0, 0, 0, 0, 0];
     for (var i=0; i<person.length; i++) {
-        total[0] = total[0]+person[i][3];
-        total[1] = total[1]+person[i][4];
-        total[3] = total[3]+person[i][6];
-        total[4] = total[4]+person[i][7];
+        if (person[i][2]!=0) {
+            total[0] = person[i][2];
+        }
+        total[1] = total[1]+person[i][3];
+        total[2] = total[2]+person[i][4];
+        total[4] = total[4]+person[i][6];
+        total[5] = total[5]+person[i][7];
     }
-    total[2] = (total[1]/total[0]*100).toFixed(2) + "%";
+    total[3] = (total[2]/total[1]*100).toFixed(2) + "%";
     return [total];
 }
 
@@ -149,14 +152,7 @@ function personCompliance(note, ncol=8) {
         }
         
     }
-    // return unique values
-    function unique(list) {
-      var result = [];
-      $.each(list, function(j, e) {
-        if ($.inArray(e, result) == -1) result.push(e);
-      });
-      return result;
-    }
+    
     // output empty array with given length
     function fillDayX(date, value, len) {
         var arr = [date];
@@ -165,5 +161,14 @@ function personCompliance(note, ncol=8) {
         }
         return arr;
     }
+}
+
+// return unique values
+function unique(list) {
+  var result = [];
+  $.each(list, function(j, e) {
+    if ($.inArray(e, result) == -1) result.push(e);
+  });
+  return result;
 }
 
