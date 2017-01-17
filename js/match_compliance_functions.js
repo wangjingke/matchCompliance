@@ -21,10 +21,11 @@ function login(inputFile) {
             var errorMessage = error.message;
             alert("error code: "+ errorCode + "; error message: " + errorMessage);
         }).then(function(){
-            firebase.database().ref().child("PARTICIPANT_LIST").child("MATCH").once('value').then(function(roster) {
+            firebase.database().ref().child("NOTES").child("MATCH").child("LIST").once('value').then(function(roster) {
                 $(function() {
                     alert("You have successfully logged in");
-                    var userList = roster.val();
+                    userList = Object.keys(roster.val());
+                    console.log(userList);
                     $( "#subjectList" ).autocomplete({source: userList});
                 });
             });
